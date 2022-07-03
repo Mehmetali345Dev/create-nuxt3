@@ -36,7 +36,7 @@ export const extraModules = [
   {
     name: '@nuxt/content',
     isDev: true,
-    description: 'Git-based Markdown written pages (Dev Dependency)',
+    description: 'Git-based Markdown written pages',
     folder: {
       name: 'content',
     },
@@ -51,6 +51,18 @@ export const extraModules = [
       {
         name: 'pinia',
         isDev: false,
+      },
+    ],
+  },
+  {
+    name: '@vueuse/nuxt',
+    isDev: true,
+    description: 'Collection of essential Vue Composition Utilities',
+    folder: null,
+    extra: [
+      {
+        name: '@vueuse/core',
+        isDev: true,
       },
     ],
   },
