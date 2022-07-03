@@ -55,6 +55,10 @@ export function installEslint(packageDir: string) {
   packageJson.devDependencies['@antfu/eslint-config'] = '*'
   packageJson.devDependencies.typescript = '*'
 
+  // Add eslint scripts
+  packageJson.scripts.lint = 'eslint .'
+  packageJson.scripts['lint:fix'] = 'eslint . --fix'
+
   // Save package.json and copy eslint configuration
   fs.copyFileSync(`${extrasRoot}/.eslintrc`, `${packageDir}/.eslintrc`)
   fs.writeFileSync(`${packageDir}/package.json`, JSON.stringify(packageJson, null, 2))
