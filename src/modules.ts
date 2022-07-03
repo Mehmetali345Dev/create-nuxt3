@@ -20,7 +20,7 @@ export function addExtraModules(packageDir: string, selectedModules: any): void 
   const packageJson = JSON.parse(fs.readFileSync(`${packageDir}/package.json`, 'utf8'))
 
   for (const selectedModule of selectedModules) {
-    const module: Module | undefined = extraModules.find(m => m.name === selectedModule)
+    const module: Module | undefined = extraModules.find(m => m.name === selectedModule.split(' | ')[0])
     if (module?.isDev)
       packageJson.devDependencies[module.name] = '*'
 
@@ -66,7 +66,7 @@ export function installEslint(packageDir: string) {
 }
 
 export function updateNuxtConfig(packageDir: string, modules: any) {
-  modules = modules.map((module: any) => `"${module}"`)
+  modules = modules.map((module: any) => `"${module.split(' | ')[0]}"`)
   const replacedNuxtConfig = nuxtConfig.replace('\nmodules:[]', `\nmodules: [${modules.join(', ')}]`)
   fs.writeFileSync(`${packageDir}/nuxt.config.ts`, replacedNuxtConfig)
 }

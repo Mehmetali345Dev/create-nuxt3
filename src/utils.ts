@@ -3,7 +3,7 @@ import { extraModules, uiFrameworks } from './constants'
 export function getExtraModules() {
   const list: string[] = []
   for (const module of extraModules)
-    list.push(module.name)
+    list.push(`${module.name} | ${module.description}`)
 
   return list
 }
