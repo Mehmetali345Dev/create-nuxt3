@@ -13,6 +13,8 @@ export function installUiFramework(packageDir: string, uiFramework: any) {
 
   else if (uiFrameworkModule?.isDev === false)
     packageJson.dependencies[uiFrameworkModule.package] = '*'
+
+  fs.writeFileSync(`${packageDir}/package.json`, JSON.stringify(packageJson, null, 2))
   sortPackageJson(packageDir)
 }
 
