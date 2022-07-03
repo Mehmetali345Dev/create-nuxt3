@@ -1,0 +1,17 @@
+{
+  "name": "{{name}}",
+  "version": "{{version}}",
+  "description": "{{description}}",
+  "author": "{{contact}}",
+  "license": "{{license}}",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nuxt": "3.0.0-rc.4"
+  }
+}
