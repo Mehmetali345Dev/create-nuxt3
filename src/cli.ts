@@ -33,7 +33,6 @@ create('create-nuxt3', {
     },
   },
   after: ({ answers, packageDir }) => {
-    console.log(answers)
     if (answers.uiFramework !== 'None')
       installUiFramework(packageDir, answers.uiFramework)
     if (answers.nuxtModules)
