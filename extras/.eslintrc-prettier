@@ -1,0 +1,9 @@
+{
+    "extends": [
+        "@antfu",
+        "prettier"
+    ],
+    "rules": {
+        "indent": "error"
+    }
+}

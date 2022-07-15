@@ -2,6 +2,7 @@ import fs from 'fs'
 import { resolve } from 'path'
 import { extraModules, nuxtConfig, uiFrameworks } from './constants'
 import type { Module } from './types'
+import { installESLint, installJSHint, installTSLint } from './installers'
 
 const extrasRoot = resolve(__dirname, '..', 'extras')
 
@@ -49,20 +50,49 @@ export function addExtraModules(packageDir: string, selectedModules: any): void 
   sortPackageJson(packageDir)
 }
 
-export function installEslint(packageDir: string) {
-  // Parse package.json, add eslint dependencies and scripts
+export function installLinter(packageDir: string, linterModule: string) {
+  // Compare linters and install the selected one
+  switch (linterModule.toLowerCase()) {
+    case 'eslint':
+      installESLint(packageDir)
+      break
+
+    case 'jshint':
+      installJSHint(packageDir)
+      break
+
+    case 'tslint':
+      installTSLint(packageDir)
+      break
+
+    default:
+      break
+  }
+
+  // Save package.json
+  sortPackageJson(packageDir)
+}
+
+export function installPrettier(packageDir: string, hasEslint: boolean) {
+  // Parse package.json, add prettier dependencies and scripts
   const packageJson = JSON.parse(fs.readFileSync(`${packageDir}/package.json`, 'utf8'))
 
-  packageJson.devDependencies.eslint = '*'
-  packageJson.devDependencies['@antfu/eslint-config'] = '*'
+  packageJson.devDependencies.prettier = '*'
+  if (hasEslint)
+    packageJson.devDependencies['eslint-config-prettier'] = '*'
   packageJson.devDependencies.typescript = '*'
 
-  // Add eslint scripts
-  packageJson.scripts.lint = 'eslint .'
-  packageJson.scripts['lint:fix'] = 'eslint . --fix'
+  // Add prettier scripts
+  packageJson.scripts.format = 'prettier .'
+  packageJson.scripts['format:write'] = 'prettier --write .'
 
-  // Save package.json and copy eslint configuration
-  fs.copyFileSync(`${extrasRoot}/.eslintrc`, `${packageDir}/.eslintrc`)
+  // Save package.json and copy prettier configuration
+  // And if .eslintrc exists, delete it and copy prettier configuration
+  fs.copyFileSync(`${extrasRoot}/.prettierrc`, `${packageDir}/.prettierrc`)
+  if (hasEslint && fs.existsSync(`${packageDir}/.eslintrc`))
+    fs.unlinkSync(`${packageDir}/.eslintrc`)
+  if (hasEslint)
+    fs.copyFileSync(`${extrasRoot}/.eslintrc-prettier`, `${packageDir}/.eslintrc`)
   fs.writeFileSync(`${packageDir}/package.json`, JSON.stringify(packageJson, null, 2))
   sortPackageJson(packageDir)
 }
