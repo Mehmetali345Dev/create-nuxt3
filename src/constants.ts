@@ -1,4 +1,4 @@
-import type { Module } from './types'
+import type { Module, UiFrameworkModule } from './types'
 
 export const uiFrameworks = [
   {
@@ -21,7 +21,7 @@ export const uiFrameworks = [
     package: 'nuxt-windicss',
     isDev: true,
   },
-]
+] as UiFrameworkModule[]
 
 export const extraModules = [
   {
@@ -73,6 +73,6 @@ import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    modules:[]
+modules:[]
 })
 `

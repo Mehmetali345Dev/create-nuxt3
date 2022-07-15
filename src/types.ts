@@ -12,3 +12,9 @@ export interface Module {
     },
   ] | null
 }
+
+export interface UiFrameworkModule {
+  name: string
+  package: string
+  isDev: boolean
+}
