@@ -59,9 +59,9 @@ create('create-nuxt3', {
     updateNuxtConfig(packageDir, modules)
   },
 
-  caveat: ({ packageDir }) => {
+  caveat: ({ name }) => {
     console.log(`
-    ${pc.green(`Change your directory to project directory with 'cd ${packageDir}' command`)} 
+    ${pc.green(`Change your directory to project directory with 'cd ${name}' command`)} 
     ${pc.yellow('Install dependencies with \'npm install\', \'yarn install\' or \'pnpm install --shamefully-hoist\'')}
     ${pc.yellow('And start development server with \'npm run dev\', \'yarn dev\' or \'pnpm dev\' ')}
     `)
